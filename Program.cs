@@ -27,6 +27,33 @@ namespace Trees
             {
                 Insert(data, root);
             }
+            public void Delete(int data, Node selected)
+            {
+
+            }
+            public Node FindMin(bool left=true)
+            {
+                Node selectedNode = new Node();
+                selectedNode = this.root;
+                if (left)
+                {
+                    while (selectedNode.left != null)
+                    {
+                        selectedNode = selectedNode.left;
+                    }
+                }
+                else
+                {
+                    selectedNode = this.root.right;
+                    while (selectedNode.left != null)
+                    {
+                        selectedNode = selectedNode.left;
+                    }
+                }
+                Console.WriteLine(selectedNode.value);
+                return(selectedNode);
+
+            }
             private void Insert(int data,Node selected)
             {
                 Node newNode = new Node();
@@ -77,10 +104,12 @@ namespace Trees
             tree.Insert(2);
             tree.Insert(7);
             tree.Insert(4);
+            tree.Insert(24);
+            tree.Insert(6);
 
-
-
-            Console.WriteLine(tree.root.left.right.value.ToString());
+            //The parameter for FindMin searches the left subtree by default, and the right subtree if set to false
+            tree.FindMin();
+            tree.FindMin(false);
         }
     }
 }
