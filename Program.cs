@@ -64,6 +64,14 @@ namespace Trees
                             {
                                 selectedNode.right = nodeToBeDeleted.right;
                             }
+
+                            else
+                            {
+                                Node rightSubtreeMin = this.FindMin(nodeToBeDeleted.right, true);
+                                Delete(this.FindMin(nodeToBeDeleted.right, true).value);
+                                Console.WriteLine(rightSubtreeMin.value.ToString() + " Min");
+                                selectedNode.left.value = rightSubtreeMin.value;
+                            }
                         }
                         else
                         {
@@ -93,6 +101,13 @@ namespace Trees
                             {
                                 selectedNode.left = nodeToBeDeleted.right;
                             }
+                            else
+                            {
+                                Node rightSubtreeMin = this.FindMin(nodeToBeDeleted.right, true);
+                                Delete(this.FindMin(nodeToBeDeleted.right, true).value);
+                                Console.WriteLine(rightSubtreeMin.value.ToString() + " Min");
+                                selectedNode.left.value = rightSubtreeMin.value;
+                            }
                         }
                         else
                         {
@@ -110,11 +125,14 @@ namespace Trees
 
 
             }
-            public Node FindMin(bool left = true)
+            public Node FindMin()
             {
-                Node selectedNode = new Node();
-                selectedNode = this.root;
-                if (this.root.right != null && this.root.right != null)
+                return FindMin(this.root, true);
+            }
+            private Node FindMin(Node selectedNode,bool left = true)
+            {
+
+                if (selectedNode.right != null && selectedNode.left != null)
                 {
                     if (left)
                     {
@@ -194,16 +212,28 @@ namespace Trees
             tree.Insert(20);
             tree.Insert(15);
             tree.Insert(13);
+            tree.Insert(16);
 
-            tree.FindMin();
-            tree.Delete(2);
-            tree.FindMin();
-            tree.Delete(1);
-            tree.FindMin();
+            tree.Delete(3);
+            tree.Delete(15);
             //The parameter for FindMin searches the left subtree by default, and the right subtree if set to false
-            tree.FindMin();
+            Console.WriteLine("---------------");
+            Console.WriteLine(tree.root.value.ToString());
+            Console.WriteLine(tree.root.left.value.ToString());
+            Console.WriteLine(tree.root.left.right.value.ToString());
+            Console.WriteLine(tree.root.left.right.right.value.ToString());
+            Console.WriteLine(tree.root.left.left.value.ToString());
+            Console.WriteLine(tree.root.left.left.left.value.ToString());
+            Console.WriteLine("---------------");
+            Console.WriteLine(tree.root.right.value.ToString());
+            Console.WriteLine(tree.root.right.left.value.ToString());
+            Console.WriteLine(tree.root.right.left.left.value.ToString());
 
-            
+
+
+
+
+
         }
     }
 }
