@@ -49,9 +49,20 @@ namespace Trees
                             parent = selectedNode;
                             Console.WriteLine(nodeToBeDeleted.value.ToString() + ": Deletion Value");
                             Console.WriteLine(parent.value.ToString() + ": Parent Value");
+
                             if (nodeToBeDeleted.right == null && nodeToBeDeleted.left == null)
                             {
                                 selectedNode.right = null;
+                            }
+
+                            else if(nodeToBeDeleted.left != null && nodeToBeDeleted.right == null)
+                            {
+                                selectedNode.right = nodeToBeDeleted.left;
+                            }
+
+                            else if(nodeToBeDeleted.left == null && nodeToBeDeleted.right != null)
+                            {
+                                selectedNode.right = nodeToBeDeleted.right;
                             }
                         }
                         else
@@ -67,9 +78,20 @@ namespace Trees
                             parent = selectedNode;
                             Console.WriteLine(nodeToBeDeleted.value.ToString() + ": Deletion Value");
                             Console.WriteLine(parent.value.ToString() + ": Parent Value");
+
                             if (nodeToBeDeleted.right == null && nodeToBeDeleted.left == null)
                             {
                                 selectedNode.left = null;
+                            }
+
+                            else if (nodeToBeDeleted.left != null && nodeToBeDeleted.right == null)
+                            {
+                                selectedNode.left = nodeToBeDeleted.left;
+                            }
+
+                            else if (nodeToBeDeleted.left == null && nodeToBeDeleted.right != null)
+                            {
+                                selectedNode.left = nodeToBeDeleted.right;
                             }
                         }
                         else
@@ -174,8 +196,10 @@ namespace Trees
             tree.Insert(13);
 
             tree.FindMin();
-            tree.Delete(1);
             tree.Delete(2);
+            tree.FindMin();
+            tree.Delete(1);
+            tree.FindMin();
             //The parameter for FindMin searches the left subtree by default, and the right subtree if set to false
             tree.FindMin();
 
