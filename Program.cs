@@ -27,33 +27,88 @@ namespace Trees
             {
                 Insert(data, root);
             }
-            public void Delete(int data, Node selected)
+            public void Delete(int data)
             {
+                Delete(data, root);
+            }
+            private void Delete(int data, Node selectedNode)
+            {
+                Node nodeToBeDeleted;
+                Node parent;
+                if (this.root == null)
+                {
+                    return;
+                }
+                if (this.root.left != null || this.root.right != null)
+                {
+                    if (data > selectedNode.value)
+                    {
+                        if (selectedNode.right.value == data)
+                        {
+                            nodeToBeDeleted = selectedNode.right;
+                            parent = selectedNode;
+                            Console.WriteLine(nodeToBeDeleted.value.ToString() + ": Deletion Value");
+                            Console.WriteLine(parent.value.ToString() + ": Parent Value");
+                        }
+                        else
+                        {
+                            Delete(data, selectedNode.right);
+                        }
+                    }
+                    else if (data < selectedNode.value)
+                    {
+                        if (selectedNode.left.value == data)
+                        {
+                            nodeToBeDeleted = selectedNode.left;
+                            parent = selectedNode;
+                            Console.WriteLine(nodeToBeDeleted.value.ToString() + ": Deletion Value");
+                            Console.WriteLine(parent.value.ToString() + ": Parent Value");
+                        }
+                        else
+                        {
+                            Delete(data, selectedNode.left);
+                        }
+                    }
+                }
+                else if(this.root.value == data)
+                {
+                    nodeToBeDeleted = this.root;
+                    parent = null;
+                    Console.WriteLine(nodeToBeDeleted.value.ToString() + ": Deletion Value");
+                    Console.WriteLine( "null : Parent Value");
+                }
+
 
             }
-            public Node FindMin(bool left=true)
+            public Node FindMin(bool left = true)
             {
                 Node selectedNode = new Node();
                 selectedNode = this.root;
-                if (left)
+                if (this.root.right != null && this.root.right != null)
                 {
-                    while (selectedNode.left != null)
+                    if (left)
                     {
-                        selectedNode = selectedNode.left;
+                        while (selectedNode.left != null)
+                        {
+                            selectedNode = selectedNode.left;
+                        }
+                    }
+                    else
+                    {
+                        selectedNode = this.root.right;
+                        while (selectedNode.left != null)
+                        {
+                            selectedNode = selectedNode.left;
+                        }
                     }
                 }
-                else
-                {
-                    selectedNode = this.root.right;
-                    while (selectedNode.left != null)
-                    {
-                        selectedNode = selectedNode.left;
-                    }
-                }
+                
                 Console.WriteLine(selectedNode.value);
                 return(selectedNode);
 
             }
+           
+
             private void Insert(int data,Node selected)
             {
                 Node newNode = new Node();
@@ -99,17 +154,24 @@ namespace Trees
         static void Main(string[] args)
         {
             BinarySearchTree tree = new BinarySearchTree();
-            tree.Insert(5);
+            tree.Insert(10);
             tree.Insert(3);
             tree.Insert(2);
-            tree.Insert(7);
-            tree.Insert(4);
-            tree.Insert(24);
+            tree.Insert(1);
+            tree.Insert(5);
             tree.Insert(6);
+            tree.Insert(7);
+            tree.Insert(20);
+            tree.Insert(15);
+            tree.Insert(13);
 
+
+            tree.Delete(15);
             //The parameter for FindMin searches the left subtree by default, and the right subtree if set to false
             tree.FindMin();
             tree.FindMin(false);
+
+            
         }
     }
 }
