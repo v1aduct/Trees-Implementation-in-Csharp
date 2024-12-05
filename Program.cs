@@ -29,7 +29,7 @@ namespace Trees
             }
             public void Delete(int data)
             {
-                Delete(data, root);
+                Delete(data, this.root);
             }
             private void Delete(int data, Node selectedNode)
             {
@@ -49,6 +49,10 @@ namespace Trees
                             parent = selectedNode;
                             Console.WriteLine(nodeToBeDeleted.value.ToString() + ": Deletion Value");
                             Console.WriteLine(parent.value.ToString() + ": Parent Value");
+                            if (nodeToBeDeleted.right == null && nodeToBeDeleted.left == null)
+                            {
+                                selectedNode.right = null;
+                            }
                         }
                         else
                         {
@@ -63,6 +67,10 @@ namespace Trees
                             parent = selectedNode;
                             Console.WriteLine(nodeToBeDeleted.value.ToString() + ": Deletion Value");
                             Console.WriteLine(parent.value.ToString() + ": Parent Value");
+                            if (nodeToBeDeleted.right == null && nodeToBeDeleted.left == null)
+                            {
+                                selectedNode.left = null;
+                            }
                         }
                         else
                         {
@@ -165,11 +173,11 @@ namespace Trees
             tree.Insert(15);
             tree.Insert(13);
 
-
-            tree.Delete(15);
+            tree.FindMin();
+            tree.Delete(1);
+            tree.Delete(2);
             //The parameter for FindMin searches the left subtree by default, and the right subtree if set to false
             tree.FindMin();
-            tree.FindMin(false);
 
             
         }
