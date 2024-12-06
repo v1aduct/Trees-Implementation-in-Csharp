@@ -39,89 +39,99 @@ namespace Trees
                 {
                     return;
                 }
-                if (this.root.left != null || this.root.right != null)
+                if(this.root.left != null || this.root.right != null)
                 {
-                    if (data > selectedNode.value)
+                    if (this.root.value == data)
                     {
-                        if (selectedNode.right.value == data)
-                        {
-                            nodeToBeDeleted = selectedNode.right;
-                            parent = selectedNode;
-                            Console.WriteLine(nodeToBeDeleted.value.ToString() + ": Deletion Value");
-                            Console.WriteLine(parent.value.ToString() + ": Parent Value");
-
-                            if (nodeToBeDeleted.right == null && nodeToBeDeleted.left == null)
-                            {
-                                selectedNode.right = null;
-                            }
-
-                            else if(nodeToBeDeleted.left != null && nodeToBeDeleted.right == null)
-                            {
-                                selectedNode.right = nodeToBeDeleted.left;
-                            }
-
-                            else if(nodeToBeDeleted.left == null && nodeToBeDeleted.right != null)
-                            {
-                                selectedNode.right = nodeToBeDeleted.right;
-                            }
-
-                            else
-                            {
-                                Node rightSubtreeMin = this.FindMin(nodeToBeDeleted.right, true);
-                                Delete(this.FindMin(nodeToBeDeleted.right, true).value);
-                                Console.WriteLine(rightSubtreeMin.value.ToString() + " Min");
-                                selectedNode.left.value = rightSubtreeMin.value;
-                            }
-                        }
-                        else
-                        {
-                            Delete(data, selectedNode.right);
-                        }
+                        nodeToBeDeleted = this.root;
+                        parent = null;
+                        Node rightSubtreeMin = this.FindMin(nodeToBeDeleted.right, true);
+                        Delete(this.FindMin(nodeToBeDeleted.right, true).value);
+                        this.root.value = rightSubtreeMin.value;
+                        return;
                     }
-                    else if (data < selectedNode.value)
+                    else
                     {
-                        if (selectedNode.left.value == data)
+
+                        if (data > selectedNode.value)
                         {
-                            nodeToBeDeleted = selectedNode.left;
-                            parent = selectedNode;
-                            Console.WriteLine(nodeToBeDeleted.value.ToString() + ": Deletion Value");
-                            Console.WriteLine(parent.value.ToString() + ": Parent Value");
-
-                            if (nodeToBeDeleted.right == null && nodeToBeDeleted.left == null)
+                            if (selectedNode.right.value == data)
                             {
-                                selectedNode.left = null;
-                            }
+                                nodeToBeDeleted = selectedNode.right;
+                                parent = selectedNode;
 
-                            else if (nodeToBeDeleted.left != null && nodeToBeDeleted.right == null)
-                            {
-                                selectedNode.left = nodeToBeDeleted.left;
-                            }
+                                if (nodeToBeDeleted.right == null && nodeToBeDeleted.left == null)
+                                {
+                                    selectedNode.right = null;
+                                    return;
+                                }
 
-                            else if (nodeToBeDeleted.left == null && nodeToBeDeleted.right != null)
-                            {
-                                selectedNode.left = nodeToBeDeleted.right;
+                                else if (nodeToBeDeleted.left != null && nodeToBeDeleted.right == null)
+                                {
+                                    selectedNode.right = nodeToBeDeleted.left;
+                                    return;
+                                }
+
+                                else if (nodeToBeDeleted.left == null && nodeToBeDeleted.right != null)
+                                {
+                                    selectedNode.right = nodeToBeDeleted.right;
+                                    return;
+                                }
+
+                                else
+                                {
+                                    Node rightSubtreeMin = this.FindMin(nodeToBeDeleted.right, true);
+                                    Delete(this.FindMin(nodeToBeDeleted.right, true).value);
+                                    selectedNode.left.value = rightSubtreeMin.value;
+                                    return;
+                                }
                             }
                             else
                             {
-                                Node rightSubtreeMin = this.FindMin(nodeToBeDeleted.right, true);
-                                Delete(this.FindMin(nodeToBeDeleted.right, true).value);
-                                Console.WriteLine(rightSubtreeMin.value.ToString() + " Min");
-                                selectedNode.left.value = rightSubtreeMin.value;
+                                Delete(data, selectedNode.right);
                             }
                         }
-                        else
+                        else if (data < selectedNode.value)
                         {
-                            Delete(data, selectedNode.left);
+                            if (selectedNode.left.value == data)
+                            {
+                                nodeToBeDeleted = selectedNode.left;
+                                parent = selectedNode;
+
+                                if (nodeToBeDeleted.right == null && nodeToBeDeleted.left == null)
+                                {
+                                    selectedNode.left = null;
+                                    return;
+                                }
+
+                                else if (nodeToBeDeleted.left != null && nodeToBeDeleted.right == null)
+                                {
+                                    selectedNode.left = nodeToBeDeleted.left;
+                                    return;
+                                }
+
+                                else if (nodeToBeDeleted.left == null && nodeToBeDeleted.right != null)
+                                {
+                                    selectedNode.left = nodeToBeDeleted.right;
+                                    return;
+                                }
+                                else
+                                {
+                                    Node rightSubtreeMin = this.FindMin(nodeToBeDeleted.right, true);
+                                    Delete(this.FindMin(nodeToBeDeleted.right, true).value);
+                                    selectedNode.left.value = rightSubtreeMin.value;
+                                    return;
+                                }
+                            }
+                            else
+                            {
+                                Delete(data, selectedNode.left);
+                            }
                         }
                     }
                 }
-                else if(this.root.value == data)
-                {
-                    nodeToBeDeleted = this.root;
-                    parent = null;
-                    Console.WriteLine(nodeToBeDeleted.value.ToString() + ": Deletion Value");
-                    Console.WriteLine( "null : Parent Value");
-                }
+
+
 
 
             }
@@ -151,7 +161,6 @@ namespace Trees
                     }
                 }
                 
-                Console.WriteLine(selectedNode.value);
                 return(selectedNode);
 
             }
@@ -214,20 +223,13 @@ namespace Trees
             tree.Insert(13);
             tree.Insert(16);
 
-            tree.Delete(3);
-            tree.Delete(15);
             //The parameter for FindMin searches the left subtree by default, and the right subtree if set to false
             Console.WriteLine("---------------");
-            Console.WriteLine(tree.root.value.ToString());
-            Console.WriteLine(tree.root.left.value.ToString());
-            Console.WriteLine(tree.root.left.right.value.ToString());
-            Console.WriteLine(tree.root.left.right.right.value.ToString());
-            Console.WriteLine(tree.root.left.left.value.ToString());
-            Console.WriteLine(tree.root.left.left.left.value.ToString());
-            Console.WriteLine("---------------");
-            Console.WriteLine(tree.root.right.value.ToString());
+
+            tree.Delete(10);
             Console.WriteLine(tree.root.right.left.value.ToString());
-            Console.WriteLine(tree.root.right.left.left.value.ToString());
+
+            
 
 
 
