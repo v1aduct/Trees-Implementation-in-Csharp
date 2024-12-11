@@ -27,6 +27,47 @@ namespace Trees
             {
                 Insert(data, root);
             }
+            private void Insert(int data, Node selected)
+            {
+                Node newNode = new Node();
+                newNode.value = data;
+                newNode.left = null;
+                newNode.right = null;
+
+                if (this.root == null)
+                {
+                    this.root = newNode;
+                    return;
+                }
+                else if (data > selected.value)
+                {
+                    if (selected.right == null)
+                    {
+                        selected.right = newNode;
+                        return;
+                    }
+                    else
+                    {
+                        Insert(data, selected.right);
+                    }
+                }
+                else if (data < selected.value)
+                {
+                    if (selected.left == null)
+                    {
+                        selected.left = newNode;
+                        return;
+                    }
+                    else
+                    {
+                        Insert(data, selected.left);
+                    }
+                }
+                else
+                {
+                    return;
+                }
+            }
             public void Delete(int data)
             {
                 Delete(data, this.root);
@@ -164,47 +205,55 @@ namespace Trees
                 return(selectedNode);
 
             }
-           
-
-            private void Insert(int data,Node selected)
+            public void PreOrder()
             {
-                Node newNode = new Node();
-                newNode.value = data;
-                newNode.left = null;
-                newNode.right = null;
-
-                if (this.root == null)
+                PreOrder(this.root);
+            }
+            private void PreOrder(Node selectedNode)
+            {
+                if(selectedNode == null)
                 {
-                    this.root = newNode;
                     return;
-                }
-                else if (data > selected.value)
-                {
-                    if (selected.right == null)
-                    {
-                        selected.right = newNode;
-                        return;
-                    }
-                    else
-                    {
-                        Insert(data, selected.right);
-                    }
-                }
-                else if (data < selected.value)
-                {
-                    if (selected.left == null)
-                    {
-                        selected.left = newNode;
-                        return;
-                    }
-                    else
-                    {
-                        Insert(data, selected.left);
-                    }
                 }
                 else
                 {
+                    Console.WriteLine(selectedNode.value.ToString());
+                    PreOrder(selectedNode.left);
+                    PreOrder(selectedNode.right);
+                }
+            }
+            public void InOrder()
+            {
+                InOrder(this.root);
+            }
+            private void InOrder(Node selectedNode)
+            {
+                if(selectedNode == null)
+                {
                     return;
+                }
+                else
+                {
+                    InOrder(selectedNode.left);
+                    Console.WriteLine(selectedNode.value);
+                    InOrder(selectedNode.right);
+                }
+            }
+            public void PostOrder()
+            {
+                PostOrder(this.root);
+            }
+            private void PostOrder(Node selectedNode)
+            {
+                if (selectedNode == null)
+                {
+                    return;
+                }
+                else
+                {
+                    PostOrder(selectedNode.left);
+                    PostOrder(selectedNode.right);
+                    Console.WriteLine(selectedNode.value);
                 }
             }
         }
@@ -226,10 +275,13 @@ namespace Trees
             //The parameter for FindMin searches the left subtree by default, and the right subtree if set to false
             Console.WriteLine("---------------");
 
-            tree.Delete(10);
-            Console.WriteLine(tree.root.right.left.value.ToString());
+            tree.PreOrder();
+            Console.WriteLine("---------------");
+            tree.InOrder();
+            Console.WriteLine("---------------");
+            tree.PostOrder();
 
-            
+
 
 
 
